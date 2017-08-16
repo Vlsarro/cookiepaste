@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>CookiePaste</legend>
+        <p><label for="first-domain">First domain</label><input type="text" id="first-domain"></p>
+        <p><label for="second-domain">Second domain</label><input type="text" id="second-domain"></p>
+        <p><label for="cookie-key">Cookie key</label><input title="Type the key of cookie value which you want to replace" type="text" id="cookie-key"></p>
+      </fieldset>
+      <p><input id="replace-btn" type="submit" value="Replace"></p>
+    </form>
+    <div id="result" style="display: none"></div>
+  </body>
+</html>
+
