@@ -7,22 +7,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	replaceButton.addEventListener('click', function(e) {
 		e.preventDefault();
-
-		chrome.cookies.get({url: firstDomain.value, name: cookieKey.value}, function(cookie) {
-			if (cookie) {
-				chrome.cookies.set({url: secondDomain.value, name: cookieKey.value, value: cookie.value}, function (cookie) {
-					var resultText;
-					if (cookie) {
-						resultText = 'Cookie ' + cookie.name + ' of ' + secondDomain.value  + ' has been replaced with ' + cookie.value;
-					} else {
-						resultText = 'Error. Cookie value hasn\'t been set';
-					}
-					resultDiv.appendChild(document.createTextNode(resultText));
-					resultDiv.style.display = 'block';
-				});
-			} else {
-				console.error('No cookie for you');
-			}
+		browser.cookies.get({url: firstDomain.value, name: cookieKey.value}).then(function (cookie) {
+			var resultText;
+			browser.cookies.set({url: secondDomain.value, name: cookieKey.value, value: cookie.value}).then(function (cookie) {
+				resultText = 'Cookie ' + cookie.name + ' of ' + secondDomain.value  + ' has been replaced with ' + cookie.value;
+				resultDiv.appendChild(document.createTextNode(resultText));
+				resultDiv.style.display = 'block';
+			}).fail(function (err) {
+				resultText = 'Error. Cookie value hasn\'t been set';
+				resultDiv.appendChild(document.createTextNode(resultText));
+				resultDiv.style.display = 'block';
+			});
+		}).fail(function (err) {
+			console.error('No cookie for you');
 		});
 	}, false)
 
