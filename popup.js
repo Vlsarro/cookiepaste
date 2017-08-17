@@ -5,6 +5,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		cookieKey = document.getElementById('cookie-key'),
 		resultDiv = document.getElementById('result');
 
+	browser.storage.sync.get({
+		firstDomain: '',
+	    secondDomain: '',
+	    cookieKey: ''
+	}).then(function (items) {
+		firstDomain.value = items.firstDomain;
+	    secondDomain.value = items.secondDomain;
+	    cookieKey.value = items.cookieKey;
+	}).catch(function () {
+		console.error('Couldn\'t set options');
+	});
+
 	function infoDiv(div, text) {
 		div.textContent = text;
 		div.style.display = 'block';
@@ -17,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			browser.cookies.set({url: secondDomain.value, name: cookieKey.value, value: cookie.value}).then(function (cookie) {
 				resultText = 'Cookie ' + cookie.name + ' of ' + secondDomain.value  + ' has been replaced with ' + cookie.value;
 				infoDiv(resultDiv, resultText);
-			}).fail(function (err) {
+			}).catch(function (err) {
 				resultText = 'Error. Cookie value hasn\'t been set';
 				infoDiv(resultDiv, resultText);
 			});
-		}).fail(function (err) {
+		}).catch(function (err) {
 			console.error('No cookie for you');
 		});
 	}, false)
