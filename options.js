@@ -1,4 +1,4 @@
-function save_options() {
+function saveOptions() {
 
   var firstDomain = document.getElementById('first-domain').value,
     secondDomain = document.getElementById('second-domain').value,
@@ -22,7 +22,7 @@ function save_options() {
   });
 }
 
-function restore_options() {
+function restoreOptions() {
 
   browser.storage.sync.get({
     firstDomain: '',
@@ -37,5 +37,5 @@ function restore_options() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click', save_options);
+document.addEventListener('DOMContentLoaded', restoreOptions);
+document.getElementById('save').addEventListener('click', saveOptions);
